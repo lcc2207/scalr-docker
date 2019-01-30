@@ -29,11 +29,11 @@ verifier:
   name: inspec
 
 platforms:
-- name: ubuntu-16.04
-  driver:
-    scalr_use_role: 1
-- name: centos7
-  driver:
+  - name: ubuntu-16.04
+    driver:
+      scalr_use_role: 1
+  - name: centos7
+    driver:
       scalr_use_role: 96624
 
 suites:
@@ -45,3 +45,14 @@ suites:
       inspec_tests:
         - test/smoke/default
     attributes:
+      scalr-docker:
+        webhooks: [
+          {
+            'Name': 'command-webhook',
+            'Image': 'command-webhook',
+            'SCALR_SIGNING_KEY': 'SCALR_SIGNING_KEY=thkDo9O22HybGIjb88ck2qMu+njkMw+dxfd4et6pLl3V8HgsyEUhbh/B9CSAy8Hi',
+            'SCALR_WEBHOOK_ENV': "SCALR_WEBHOOK=command",
+            'SCALR_COMMAND_GV': "SCALR_COMMAND_GV=WEBHOOK_COMMAND",
+            'Port': "5018:5018"
+          }
+        ]

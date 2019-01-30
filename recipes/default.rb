@@ -9,7 +9,7 @@ docker_service 'default' do
   action [:create, :start]
 end
 
-node['scalr-docker']['webhooks'].each do |hook|
+ node['scalr-docker']['webhooks'].each do |hook|
   docker_container hook['Name'] do
     repo hook['Image']
     env [hook['SCALR_SIGNING_KEY'], hook['SCALR_WEBHOOK_ENV'], hook['SCALR_COMMAND_GV']]
@@ -17,4 +17,4 @@ node['scalr-docker']['webhooks'].each do |hook|
     port hook['Port']
     action :run
   end
-end
+ end
